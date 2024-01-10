@@ -48,11 +48,12 @@ func GetConfig() model.Config {
 			ServerPort:   viper.GetString("SERVER_PORT"),
 			HealthPort:   viper.GetString("HEALTH_PORT"),
 			TimeLocation: viper.GetString("TIME_LOCATION"),
-			ViaCep: model.HTTPClientConfig{
+			AweSome: model.HTTPClientConfig{
 				HTTP: model.HTTP{
-					URL:      viper.GetString("VIA_CEP_URL"),
-					MaxRetry: viper.GetInt("VIA_CEP_MAX_RETRY"),
-					Timeout:  viper.GetInt("VIA_CEP_MAX_TIMEOUT"),
+					URL:             viper.GetString("AWESOME_URL"),
+					MaxRetry:        viper.GetInt("AWESOME_MAX_RETRY"),
+					MaxFailureRatio: viper.GetInt("AWESOME_MAX_FAILURE_RATIO"),
+					Name:            viper.GetInt("AWESOME_NAME"),
 				},
 			},
 		}

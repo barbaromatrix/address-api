@@ -5,7 +5,7 @@ type Config struct {
 	ServerPort   string
 	HealthPort   string
 	TimeLocation string
-	ViaCep       HTTPClientConfig
+	AweSome      HTTPClientConfig
 }
 
 type HTTPClientConfig struct {
@@ -13,20 +13,8 @@ type HTTPClientConfig struct {
 }
 
 type HTTP struct {
-	URL                 string
-	MaxRetry            int
-	Timeout             int
-	CircuitBreaker      CircuitBreaker
-	MaxWaitTimeMillis   int
-	MaxIdleConns        int
-	MaxIdleConnsPerHost int
-}
-
-type CircuitBreaker struct {
-	Enabled                 bool
-	RequestsInOpenState     uint32
-	IntervalMillis          uint32
-	OpenStateDurationMillis uint32
-	MinRequestsToOpen       uint32
-	FailureAllowedRatio     float64
+	URL             string
+	MaxRetry        int
+	MaxFailureRatio int
+	Name            int
 }
