@@ -5,7 +5,7 @@ type Config struct {
 	ServerHost   string
 	MetaHost     string
 	TimeLocation string
-	AweSome      HTTPClientConfig
+	Ip           HTTPClientConfig
 }
 
 type HTTPClientConfig struct {

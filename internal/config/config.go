@@ -48,12 +48,12 @@ func GetConfig() model.Config {
 			ServerHost:   viper.GetString("SERVER_HOST"),
 			MetaHost:     viper.GetString("META_HOST"),
 			TimeLocation: viper.GetString("TIME_LOCATION"),
-			AweSome: model.HTTPClientConfig{
+			Ip: model.HTTPClientConfig{
 				HTTP: model.HTTP{
-					URL:             viper.GetString("AWESOME_URL"),
-					MaxRetry:        viper.GetInt("AWESOME_MAX_RETRY"),
-					MaxFailureRatio: viper.GetInt("AWESOME_MAX_FAILURE_RATIO"),
-					Name:            viper.GetInt("AWESOME_NAME"),
+					URL:             viper.GetString("IP_URL"),
+					MaxRetry:        viper.GetInt("IP_MAX_RETRY"),
+					MaxFailureRatio: viper.GetInt("IP_MAX_FAILURE_RATIO"),
+					Name:            viper.GetInt("IP_NAME"),
 				},
 			},
 		}
