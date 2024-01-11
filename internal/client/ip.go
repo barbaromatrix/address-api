@@ -35,13 +35,13 @@ func NewIIpClient(cfg model.Config) *IpClient {
 	}
 }
 
-func (a *IpClient) GetAddress(ctx context.Context, ip model.IpRequest) (*model.IpResponse, error) {
+func (a *IpClient) GetAddress(ctx context.Context, request model.IpRequest) (*model.IpResponse, error) {
 
 	body, err := a.client.Execute(func() (interface{}, error) {
-		url := a.url + ip.Ip
+		url := a.url + request.Ip
 		resp, err := http.Get(url)
 		if err != nil {
-			easyzap.Error(context.Background(), err, "error to recover address from ip")
+			easyzap.Error(ctx, err, "error to recover address from ip")
 
 			return nil, err
 		}
@@ -49,7 +49,7 @@ func (a *IpClient) GetAddress(ctx context.Context, ip model.IpRequest) (*model.I
 
 		body, err := io.ReadAll(resp.Body)
 		if err != nil {
-			easyzap.Error(context.Background(), err, "[ip] failed during read body")
+			easyzap.Error(ctx, err, "[ip] failed during read body")
 
 			return nil, err
 		}
@@ -62,7 +62,7 @@ func (a *IpClient) GetAddress(ctx context.Context, ip model.IpRequest) (*model.I
 
 	var IpResponse model.IpResponse
 	if err := json.Unmarshal(body.([]byte), &IpResponse); err != nil {
-		easyzap.Error(context.Background(), err, "[ip] failed during unmarshal return api")
+		easyzap.Error(ctx, err, "[ip] failed during unmarshal return api")
 
 		return nil, err
 	}

@@ -80,6 +80,9 @@ func RunServer() error {
 		grpc.KeepaliveEnforcementPolicy(serverEnforcement),
 	)
 	reflection.Register(grpcServer)
+	//cfg := config.GetConfig()
+	//ipClient := client.NewIIpClient(cfg)
+	//ipService := service.NewIpService(ipClient)
 	listener, err := net.Listen("tcp", ":"+config.GetConfig().ServerHost)
 	if err != nil {
 		easyzap.Errorf("Error while initializing server: ", err)
