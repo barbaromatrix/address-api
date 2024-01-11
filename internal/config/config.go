@@ -45,8 +45,8 @@ func GetConfig() model.Config {
 		initConfig()
 		config = model.Config{
 			AppName:      viper.GetString("APPLICATION_NAME"),
-			ServerPort:   viper.GetString("SERVER_PORT"),
-			HealthPort:   viper.GetString("HEALTH_PORT"),
+			ServerHost:   viper.GetString("SERVER_HOST"),
+			MetaHost:     viper.GetString("META_HOST"),
 			TimeLocation: viper.GetString("TIME_LOCATION"),
 			AweSome: model.HTTPClientConfig{
 				HTTP: model.HTTP{

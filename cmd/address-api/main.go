@@ -1,34 +1,32 @@
 package main
 
 import (
-	"address-api/cmd/address-api/health"
-	"address-api/cmd/address-api/server"
+	"address-api/cmd/address-api/router"
 	"address-api/internal/config"
-	"address-api/internal/model"
-	"address-api/internal/pgk/client"
-	"fmt"
+	"context"
+	"os"
+	"os/signal"
+	"syscall"
 
 	"github.com/lockp111/go-easyzap"
 )
 
 func main() {
-	cfg := config.GetConfig()
+	ctx := context.Background()
 
-	server := server.NewServer(cfg.AppName)
+	go router.Start(router.NewMetaApp(), config.GetConfig().MetaHost)
 
-	aweSomeClient := client.NewAwesomeClient(cfg)
+	if err := router.RunServer(); err != nil {
+		easyzap.Error(ctx, err, "Error while initializing gRPC server")
+	}
 
-	setupHttpServer(server, cfg)
-
-	easyzap.Info("start application")
-
-	health.NewHealthServer()
-
-	fmt.Println(aweSomeClient)
-}
-
-func setupHttpServer(server *server.Server, config model.Config) {
-	go func() {
-		server.Start(config)
-	}()
+	// gracefully shutdown
+	signalChannel := make(chan os.Signal, 1)
+	signal.Notify(signalChannel, os.Interrupt, syscall.SIGTERM)
+	switch <-signalChannel {
+	case os.Interrupt:
+		easyzap.Infof("Received SIGINT, stopping...")
+	case syscall.SIGTERM:
+		easyzap.Infof("Received SIGTERM, stopping...")
+	}
 }

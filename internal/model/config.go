@@ -2,8 +2,8 @@ package model
 
 type Config struct {
 	AppName      string
-	ServerPort   string
-	HealthPort   string
+	ServerHost   string
+	MetaHost     string
 	TimeLocation string
 	AweSome      HTTPClientConfig
 }
