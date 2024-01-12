@@ -1,0 +1,28 @@
+syntax = "proto3";
+package address.v1;
+
+option go_package =	"./api/proto/v1";
+
+/* GetAddressByIp represents an address query via IP. */
+
+service Address {
+    rpc GetAddressByIp(IpRequest) returns (IpResponse) {}
+}
+
+message IpRequest {
+    string ip = 1;
+}
+
+message IpResponse {
+    string status = 1;
+    string message = 2;
+    string country = 3;
+    string countryCode = 4;
+    string region = 5;
+    string regionName = 6;
+    string city = 7;
+    string zip = 8;
+    string lat = 9;
+    string lon = 10;
+    string timezone = 11;
+}

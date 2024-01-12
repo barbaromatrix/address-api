@@ -6,6 +6,10 @@ import (
 	"context"
 )
 
+type IIp interface {
+	GetFormBy(ctx context.Context, request model.IpRequest) (*model.IpResponse, error)
+}
+
 type Ip struct {
 	client client.IIpClient
 }
