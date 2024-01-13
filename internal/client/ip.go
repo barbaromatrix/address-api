@@ -2,6 +2,7 @@ package client
 
 import (
 	"address-api/internal/model"
+	v1 "address-api/pkg/api/proto/v1"
 	"context"
 	"encoding/json"
 	"io"
@@ -12,7 +13,7 @@ import (
 )
 
 type IIpClient interface {
-	GetAddress(ctx context.Context, ae model.IpRequest) (*model.IpResponse, error)
+	GetAddress(ctx context.Context, req *v1.IpRequest) (*v1.IpResponse, error)
 }
 
 type IpClient struct {
@@ -35,10 +36,10 @@ func NewIIpClient(cfg model.Config) *IpClient {
 	}
 }
 
-func (a *IpClient) GetAddress(ctx context.Context, request model.IpRequest) (*model.IpResponse, error) {
+func (a *IpClient) GetAddress(ctx context.Context, req *v1.IpRequest) (*v1.IpResponse, error) {
 
 	body, err := a.client.Execute(func() (interface{}, error) {
-		url := a.url + request.Ip
+		url := a.url + req.Ip
 		resp, err := http.Get(url)
 		if err != nil {
 			easyzap.Error(ctx, err, "error to recover address from ip")
@@ -60,12 +61,12 @@ func (a *IpClient) GetAddress(ctx context.Context, request model.IpRequest) (*mo
 		return nil, err
 	}
 
-	var IpResponse model.IpResponse
-	if err := json.Unmarshal(body.([]byte), &IpResponse); err != nil {
+	var resp *v1.IpResponse
+	if err := json.Unmarshal(body.([]byte), &resp); err != nil {
 		easyzap.Error(ctx, err, "[ip] failed during unmarshal return api")
 
 		return nil, err
 	}
 
-	return &IpResponse, nil
+	return resp, nil
 }

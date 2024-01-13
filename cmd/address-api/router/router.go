@@ -5,7 +5,10 @@ import (
 	"time"
 
 	"address-api/internal/api"
+	"address-api/internal/client"
 	"address-api/internal/config"
+	"address-api/internal/service"
+	v1 "address-api/pkg/api/proto/v1"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -80,9 +83,10 @@ func RunServer() error {
 		grpc.KeepaliveEnforcementPolicy(serverEnforcement),
 	)
 	reflection.Register(grpcServer)
-	//cfg := config.GetConfig()
-	//ipClient := client.NewIIpClient(cfg)
-	//ipService := service.NewIpService(ipClient)
+	cfg := config.GetConfig()
+	ipClient := client.NewIIpClient(cfg)
+	ipService := service.NewIpService(ipClient)
+	v1.RegisterAddressServer(grpcServer, api.NewAddressV5(ipService))
 	listener, err := net.Listen("tcp", ":"+config.GetConfig().ServerHost)
 	if err != nil {
 		easyzap.Errorf("Error while initializing server: ", err)

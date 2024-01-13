@@ -22,7 +22,7 @@ message IpResponse {
     string regionName = 6;
     string city = 7;
     string zip = 8;
-    string lat = 9;
-    string lon = 10;
+    double lat = 9;
+    double lon = 10;
     string timezone = 11;
 }

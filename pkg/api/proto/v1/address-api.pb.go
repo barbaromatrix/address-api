@@ -72,17 +72,17 @@ type IpResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Status      string `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	Message     string `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
-	Country     string `protobuf:"bytes,3,opt,name=country,proto3" json:"country,omitempty"`
-	CountryCode string `protobuf:"bytes,4,opt,name=countryCode,proto3" json:"countryCode,omitempty"`
-	Region      string `protobuf:"bytes,5,opt,name=region,proto3" json:"region,omitempty"`
-	RegionName  string `protobuf:"bytes,6,opt,name=regionName,proto3" json:"regionName,omitempty"`
-	City        string `protobuf:"bytes,7,opt,name=city,proto3" json:"city,omitempty"`
-	Zip         string `protobuf:"bytes,8,opt,name=zip,proto3" json:"zip,omitempty"`
-	Lat         string `protobuf:"bytes,9,opt,name=lat,proto3" json:"lat,omitempty"`
-	Lon         string `protobuf:"bytes,10,opt,name=lon,proto3" json:"lon,omitempty"`
-	Timezone    string `protobuf:"bytes,11,opt,name=timezone,proto3" json:"timezone,omitempty"`
+	Status      string  `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	Message     string  `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
+	Country     string  `protobuf:"bytes,3,opt,name=country,proto3" json:"country,omitempty"`
+	CountryCode string  `protobuf:"bytes,4,opt,name=countryCode,proto3" json:"countryCode,omitempty"`
+	Region      string  `protobuf:"bytes,5,opt,name=region,proto3" json:"region,omitempty"`
+	RegionName  string  `protobuf:"bytes,6,opt,name=regionName,proto3" json:"regionName,omitempty"`
+	City        string  `protobuf:"bytes,7,opt,name=city,proto3" json:"city,omitempty"`
+	Zip         string  `protobuf:"bytes,8,opt,name=zip,proto3" json:"zip,omitempty"`
+	Lat         float64 `protobuf:"fixed64,9,opt,name=lat,proto3" json:"lat,omitempty"`
+	Lon         float64 `protobuf:"fixed64,10,opt,name=lon,proto3" json:"lon,omitempty"`
+	Timezone    string  `protobuf:"bytes,11,opt,name=timezone,proto3" json:"timezone,omitempty"`
 }
 
 func (x *IpResponse) Reset() {
@@ -173,18 +173,18 @@ func (x *IpResponse) GetZip() string {
 	return ""
 }
 
-func (x *IpResponse) GetLat() string {
+func (x *IpResponse) GetLat() float64 {
 	if x != nil {
 		return x.Lat
 	}
-	return ""
+	return 0
 }
 
-func (x *IpResponse) GetLon() string {
+func (x *IpResponse) GetLon() float64 {
 	if x != nil {
 		return x.Lon
 	}
-	return ""
+	return 0
 }
 
 func (x *IpResponse) GetTimezone() string {
@@ -216,8 +216,8 @@ var file_api_proto_v1_address_api_proto_rawDesc = []byte{
 	0x0a, 0x04, 0x63, 0x69, 0x74, 0x79, 0x18, 0x07, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x63, 0x69,
 	0x74, 0x79, 0x12, 0x10, 0x0a, 0x03, 0x7a, 0x69, 0x70, 0x18, 0x08, 0x20, 0x01, 0x28, 0x09, 0x52,
 	0x03, 0x7a, 0x69, 0x70, 0x12, 0x10, 0x0a, 0x03, 0x6c, 0x61, 0x74, 0x18, 0x09, 0x20, 0x01, 0x28,
-	0x09, 0x52, 0x03, 0x6c, 0x61, 0x74, 0x12, 0x10, 0x0a, 0x03, 0x6c, 0x6f, 0x6e, 0x18, 0x0a, 0x20,
-	0x01, 0x28, 0x09, 0x52, 0x03, 0x6c, 0x6f, 0x6e, 0x12, 0x1a, 0x0a, 0x08, 0x74, 0x69, 0x6d, 0x65,
+	0x01, 0x52, 0x03, 0x6c, 0x61, 0x74, 0x12, 0x10, 0x0a, 0x03, 0x6c, 0x6f, 0x6e, 0x18, 0x0a, 0x20,
+	0x01, 0x28, 0x01, 0x52, 0x03, 0x6c, 0x6f, 0x6e, 0x12, 0x1a, 0x0a, 0x08, 0x74, 0x69, 0x6d, 0x65,
 	0x7a, 0x6f, 0x6e, 0x65, 0x18, 0x0b, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x74, 0x69, 0x6d, 0x65,
 	0x7a, 0x6f, 0x6e, 0x65, 0x32, 0x4c, 0x0a, 0x07, 0x41, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x12,
 	0x41, 0x0a, 0x0e, 0x47, 0x65, 0x74, 0x41, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x42, 0x79, 0x49,
