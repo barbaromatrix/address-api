@@ -24,6 +24,11 @@ The `environment` are available:
 - dev
 - prod
 
+### Start Docker
+```
+make compose-infra-up
+```
+
 ### Launch
 ```shell
 {
