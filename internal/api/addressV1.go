@@ -11,10 +11,10 @@ import (
 
 type AddressV1 struct {
 	v1.UnimplementedAddressServer
-	ipService service.IIp
+	ipService service.IpClient
 }
 
-func NewAddressV5(ipService service.IIp) v1.AddressServer {
+func NewAddressV5(ipService service.IpClient) v1.AddressServer {
 	return &AddressV1{
 		ipService: ipService,
 	}

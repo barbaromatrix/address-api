@@ -7,6 +7,7 @@ import (
 	"address-api/internal/api"
 	"address-api/internal/client"
 	"address-api/internal/config"
+	"address-api/internal/metrics"
 	"address-api/internal/service"
 	v1 "address-api/pkg/api/proto/v1"
 
@@ -42,7 +43,7 @@ func Start(e *echo.Echo, host string) {
 	easyzap.Errorf("Failed to start the server. Error: ", err)
 }
 
-func RunServer() error {
+func RunServer(host string) error {
 	serverEnforcement := keepalive.EnforcementPolicy{
 		// By default, gRPC disconnects clients that send "too many" pings,
 		// but we don't really care about that, so configure the server to be
@@ -83,11 +84,21 @@ func RunServer() error {
 		grpc.KeepaliveEnforcementPolicy(serverEnforcement),
 	)
 	reflection.Register(grpcServer)
-	cfg := config.GetConfig()
-	ipClient := client.NewIIpClient(cfg)
+
+	//configs
+	ipClientConfig := config.GetIpClientConfig()
+
+	//metrics
+	metrics := metrics.NewMetrics()
+
+	//clients
+	ipClient := client.NewIpClient(ipClientConfig, metrics)
+
+	//services
 	ipService := service.NewIpService(ipClient)
+
 	v1.RegisterAddressServer(grpcServer, api.NewAddressV5(ipService))
-	listener, err := net.Listen("tcp", ":"+config.GetConfig().ServerHost)
+	listener, err := net.Listen("tcp", host)
 	if err != nil {
 		easyzap.Errorf("Error while initializing server: ", err)
 	}

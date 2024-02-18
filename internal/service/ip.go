@@ -1,23 +1,23 @@
 package service
 
 import (
-	"address-api/internal/client"
 	v1 "address-api/pkg/api/proto/v1"
 	"context"
 	"fmt"
 
 	"github.com/lockp111/go-easyzap"
+	"github.com/pkg/errors"
 )
 
-type IIp interface {
+type IpClient interface {
 	GetAddress(ctx context.Context, request *v1.IpRequest) (*v1.IpResponse, error)
 }
 
 type Ip struct {
-	client client.IIpClient
+	client IpClient
 }
 
-func NewIpService(client client.IIpClient) *Ip {
+func NewIpService(client IpClient) *Ip {
 	return &Ip{
 		client: client,
 	}
@@ -33,12 +33,12 @@ func (i *Ip) GetAddress(ctx context.Context, request *v1.IpRequest) (*v1.IpRespo
 
 	if resp.Status != "success" {
 
-		return nil, err
+		return nil, errors.Wrap(err, "Failed get address from ip")
 	}
 
 	if i.validateResponse(ctx, resp) != nil {
 
-		return nil, err
+		return nil, errors.Wrap(err, "Status response from ip is not success")
 	}
 
 	return resp, nil

@@ -1,0 +1,19 @@
+appConfigFile:
+  enabled: true
+  data:
+    - volumeName: service-config
+      mountPath: /app/app/internal/config
+      fileName: configuration.yml
+      fileContent: |
+        app:
+          name: address-api
+        server:
+          port: 0.0.0.0:8080
+        health:
+          port: 0.0.0.0:8081
+        timeLocation: America/Sao_Paulo
+        ip:
+          url: http://ip-api.com/json/
+          maxRetry: 2
+          maxFailureRatio: 0.6
+          name: HTTP GET

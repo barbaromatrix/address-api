@@ -3,7 +3,7 @@ module address-api
 go 1.21.4
 
 require (
-	github.com/integralist/go-findroot v0.0.0-20160518114804-ac90681525dc
+	github.com/pkg/errors v0.9.1
 	github.com/spf13/viper v1.18.2
 	google.golang.org/protobuf v1.31.0
 )
@@ -34,7 +34,6 @@ require (
 	github.com/matttproud/golang_protobuf_extensions/v2 v2.0.0 // indirect
 	github.com/outcaste-io/ristretto v0.2.3 // indirect
 	github.com/philhofer/fwd v1.1.2 // indirect
-	github.com/pkg/errors v0.9.1 // indirect
 	github.com/prometheus/client_model v0.5.0 // indirect
 	github.com/prometheus/common v0.45.0 // indirect
 	github.com/prometheus/procfs v0.12.0 // indirect
@@ -59,6 +58,7 @@ require (
 require (
 	github.com/fsnotify/fsnotify v1.7.0 // indirect
 	github.com/hashicorp/hcl v1.0.1-vault-5 // indirect
+	github.com/joomcode/errorx v1.1.1
 	github.com/labstack/echo/v4 v4.11.4
 	github.com/lockp111/go-easyzap v1.1.0
 	github.com/magiconair/properties v1.8.7 // indirect

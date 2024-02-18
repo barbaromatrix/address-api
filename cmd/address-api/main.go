@@ -13,10 +13,12 @@ import (
 
 func main() {
 	ctx := context.Background()
+	config.Init()
+	cfg := config.GetConfig()
 
-	go router.Start(router.NewMetaApp(), config.GetConfig().MetaHost)
+	go router.Start(router.NewMetaApp(), cfg.HealthPort)
 
-	if err := router.RunServer(); err != nil {
+	if err := router.RunServer(cfg.ServerHost); err != nil {
 		easyzap.Error(ctx, err, "Error while initializing gRPC server")
 	}
 
