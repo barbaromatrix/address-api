@@ -6,6 +6,7 @@ import (
 	v1 "address-api/pkg/api/proto/v1"
 	"context"
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 
@@ -42,23 +43,22 @@ func (i *Ip) GetAddress(ctx context.Context, req *v1.IpRequest) (*v1.IpResponse,
 		url := i.url + req.Ip
 		resp, err := http.Get(url)
 		if err != nil {
-			easyzap.Error(ctx, err, "error to recover address from ip %v", req.Ip)
 			mv := []string{"GetAddress", "error", "recover_address"}
 			i.metrics.IpClient.WithLabelValues(mv...).Inc()
-
-			return nil, errors.Wrap(err, "Failed to recover address from ip")
+			errWrap := errors.Wrapf(err, "failed to recover address from ip %v", req.Ip)
+			easyzap.Error(ctx, errWrap, "failed to recover address from ip")
+			return nil, errWrap
 		}
 		defer resp.Body.Close()
 
 		body, err := io.ReadAll(resp.Body)
 		if err != nil {
-			easyzap.Error(ctx, err, "error during read body from ip %v", req.Ip)
 			mv := []string{"GetAddress", "error", "read_body"}
 			i.metrics.IpClient.WithLabelValues(mv...).Inc()
-
-			return nil, errors.Wrap(err, "Failed to read body")
+			errWrap := errors.Wrapf(err, "failed to read body from ip %v", req.Ip)
+			easyzap.Error(ctx, errWrap, "failed to read body from ip")
+			return nil, errWrap
 		}
-
 		return body, nil
 	})
 	if err != nil {
@@ -67,15 +67,37 @@ func (i *Ip) GetAddress(ctx context.Context, req *v1.IpRequest) (*v1.IpResponse,
 
 	var resp *v1.IpResponse
 	if err := json.Unmarshal(body.([]byte), &resp); err != nil {
-		easyzap.Error(ctx, err, "error during unmarshal return api from ip %v", req.Ip)
 		mv := []string{"GetAddress", "error", "unmarshal"}
 		i.metrics.IpClient.WithLabelValues(mv...).Inc()
+		errWrap := errors.Wrapf(err, "failed to unmarshal return api from ip %v", req.Ip)
+		easyzap.Error(ctx, errWrap, "failed to unmarshal return api from ip")
+		return nil, errWrap
+	}
 
-		return nil, errors.Wrap(err, "Failed during unmarshal return api from ip")
+	if err := i.validateResponse(ctx, resp); err != nil {
+		return nil, err
 	}
 
 	mv := []string{"GetAddress", "success", ""}
 	i.metrics.IpClient.WithLabelValues(mv...).Inc()
-
 	return resp, nil
+}
+
+func (i *Ip) validateResponse(ctx context.Context, resp *v1.IpResponse) error {
+	validations := []struct {
+		Condition bool
+		Message   string
+	}{
+		{resp.Status != "success", "ip-api fail"},
+	}
+
+	for _, v := range validations {
+		if v.Condition {
+			errWrap := errors.Wrapf(fmt.Errorf(v.Message), "invalid response ip client %v", resp.Status)
+			easyzap.Error(ctx, errWrap, "invalid response response ip client")
+			return errWrap
+		}
+	}
+
+	return nil
 }
