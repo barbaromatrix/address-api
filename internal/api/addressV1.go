@@ -1,10 +1,11 @@
 package api
 
 import (
-	"address-api/internal/service"
-	v1 "address-api/pkg/api/proto/v1"
 	"context"
 	"fmt"
+
+	"github.com/VanessaVallarini/address-api/internal/service"
+	v1 "github.com/VanessaVallarini/address-api/pkg/api/proto/v1"
 
 	"github.com/lockp111/go-easyzap"
 )

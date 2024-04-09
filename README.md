@@ -40,7 +40,7 @@ make compose-infra-up
             "request": "launch",
             "mode": "debug",
             "cwd": "${workspaceFolder}",
-            "program": "${cwd}/cmd/address-api/main.go"
+            "program": "${cwd}/cmd/github.com/VanessaVallarini/address-apimain.go"
         }
     ]
 }

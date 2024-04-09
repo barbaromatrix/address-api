@@ -1,12 +1,13 @@
 package main
 
 import (
-	"address-api/cmd/address-api/router"
-	"address-api/internal/config"
 	"context"
 	"os"
 	"os/signal"
 	"syscall"
+
+	"github.com/VanessaVallarini/address-api/cmd/address-api/router"
+	"github.com/VanessaVallarini/address-api/internal/config"
 
 	"github.com/lockp111/go-easyzap"
 )

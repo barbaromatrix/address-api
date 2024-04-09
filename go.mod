@@ -1,4 +1,4 @@
-module address-api
+module github.com/VanessaVallarini/address-api
 
 go 1.21.4
 

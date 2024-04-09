@@ -1,8 +1,9 @@
 package service
 
 import (
-	v1 "address-api/pkg/api/proto/v1"
 	"context"
+
+	v1 "github.com/VanessaVallarini/address-api/pkg/api/proto/v1"
 )
 
 type IpClient interface {
