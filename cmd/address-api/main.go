@@ -6,8 +6,8 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/VanessaVallarini/address-api/cmd/address-api/router"
-	"github.com/VanessaVallarini/address-api/internal/config"
+	"github.com/barbaromatrix/address-api/cmd/address-api/router"
+	"github.com/barbaromatrix/address-api/internal/config"
 
 	"github.com/lockp111/go-easyzap"
 )

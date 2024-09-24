@@ -7,9 +7,9 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/VanessaVallarini/address-api/internal/config"
-	"github.com/VanessaVallarini/address-api/internal/metrics"
-	v1 "github.com/VanessaVallarini/address-api/pkg/api/proto/v1"
+	"github.com/barbaromatrix/address-api/internal/config"
+	"github.com/barbaromatrix/address-api/internal/metrics"
+	v1 "github.com/barbaromatrix/address-api/pkg/api/proto/v1"
 
 	"github.com/lockp111/go-easyzap"
 	"github.com/pkg/errors"

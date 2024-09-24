@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 
-	v1 "github.com/VanessaVallarini/address-api/pkg/api/proto/v1"
+	v1 "github.com/barbaromatrix/address-api/pkg/api/proto/v1"
 )
 
 type IpClient interface {

@@ -4,12 +4,12 @@ import (
 	"net"
 	"time"
 
-	"github.com/VanessaVallarini/address-api/internal/api"
-	"github.com/VanessaVallarini/address-api/internal/client"
-	"github.com/VanessaVallarini/address-api/internal/config"
-	"github.com/VanessaVallarini/address-api/internal/metrics"
-	"github.com/VanessaVallarini/address-api/internal/service"
-	v1 "github.com/VanessaVallarini/address-api/pkg/api/proto/v1"
+	"github.com/barbaromatrix/address-api/internal/api"
+	"github.com/barbaromatrix/address-api/internal/client"
+	"github.com/barbaromatrix/address-api/internal/config"
+	"github.com/barbaromatrix/address-api/internal/metrics"
+	"github.com/barbaromatrix/address-api/internal/service"
+	v1 "github.com/barbaromatrix/address-api/pkg/api/proto/v1"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"

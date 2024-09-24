@@ -1,4 +1,4 @@
-module github.com/VanessaVallarini/address-api
+module github.com/barbaromatrix/address-api
 
 go 1.21.4
 
